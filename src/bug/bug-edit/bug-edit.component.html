@@ -1,0 +1,82 @@
+<mat-card>
+  <p>Edit the current bug</p>
+  <mat-card-content>
+    <form #form="ngForm" (ngSubmit)="edit()">
+      <mat-form-field>
+        <input matInput
+               [(ngModel)]="bug.title"
+               #title="ngModel"
+               id="title"
+               name="title"
+               placeholder="Title">
+        <mat-error *ngIf="title.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               [(ngModel)]="bug.version"
+               #version="ngModel"
+               id="version"
+               name="version"
+               placeholder="Version"
+               required
+               pattern="[0-9a-z\.]*"
+               placeholder="Version">
+        <mat-error *ngIf="version.errors?.required">Required</mat-error>
+        <mat-error *ngIf="version.errors?.pattern">Alphanumerical characters divided by dots</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               [(ngModel)]="bug.fixedVersion"
+               #revision="ngModel"
+               id="revision"
+               name="revision"
+               placeholder="Revision">
+        <mat-error *ngIf="version.errors?.required">Required</mat-error>
+        <mat-error *ngIf="version.errors?.pattern">Alphanumerical characters divided by dots</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>AssignedTo</mat-label>
+        <mat-select [(ngModel)]="bug.assignedTo"
+                    name="assigned_to"
+                    id="assigned_to"
+                    #assigned_to="ngModel"
+                    required>
+          <mat-option *ngIf="bug" [value]="bug.assignedTo" selected>{{bug.assignedTo}}</mat-option>
+          <mat-option *ngFor="let username of usernames" [value]="username">{{username}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="bug.status"
+                    name="status"
+                    id="status"
+                    #status="ngModel"
+                    required>
+          <mat-option [value]="bugActualStatus" >{{bugActualStatus}}</mat-option>
+          <mat-option *ngFor="let status of bugStatusList" [value]="status"  [disabled]="bugClosed(status)">{{status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Severity</mat-label>
+        <mat-select [(ngModel)]="bug.severity"
+                    name="severity"
+                    id="severity"
+                    #status="ngModel"
+                    required>
+          <mat-option *ngFor="let status of severity" [value]="status"
+                      selected="bug.severity === status">{{status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <button mat-raised-button class="save" color="primary" type="submit">Edit</button>
+
+    </form>
+  </mat-card-content>
+  <p>
+    {{form.value|json}}
+  </p>
+</mat-card>
+

@@ -1,0 +1,14 @@
+div .mat-menu-content,
+.mat-menu-content:not(:empty) {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 12px;
+}
+
+.mat-icon:hover {
+  color: cyan;
+}
+
+.logout:hover {
+  color: red;
+}

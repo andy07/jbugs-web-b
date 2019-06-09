@@ -1,0 +1,90 @@
+<mat-card>
+  <h4>Create a new user</h4>
+  <mat-card-content>
+  <form #form="ngForm" >
+    <mat-form-field>
+      <input matInput
+             [(ngModel)]="user.firstName"
+             id="firstName"
+             #firstName="ngModel"
+             name="firstName"
+             pattern="^[A-Z][a-z]+[ ]?([A-Z][a-z]+)?$"
+             required
+             maxlength="20"
+             placeholder="First Name">
+      <mat-error *ngIf="firstName?.touched && firstName?.invalid">Required</mat-error>
+      <mat-error *ngIf="firstName?.errors?.pattern">Incorrect First Name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             [(ngModel)]="user.lastName"
+             id="lastName"
+             name="lastName"
+             pattern="^[A-Z][a-z]+$"
+             required
+             maxlength="20"
+             placeholder="Last Name"
+             #lastName="ngModel">
+      <mat-error *ngIf="lastName?.touched && lastName?.invalid">Required</mat-error>
+      <mat-error *ngIf="lastName?.errors?.pattern">Incorrect Last Name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             [(ngModel)]="user.mobileNumber"
+             required
+             id="mobileNumber"
+             name="mobileNumber"
+             maxlength="20"
+             placeholder="Mobile Number"
+             pattern="[+]4[0|9]{1}[0-9]{9}"
+             #mobileNumber="ngModel">
+      <mat-error *ngIf="mobileNumber.touched && mobileNumber.invalid">Required</mat-error>
+      <mat-error *ngIf="mobileNumber.errors?.pattern">Mobile number doesn't belong to Romania/Germany</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             [(ngModel)]="user.email"
+             required
+             id="email"
+             name="email"
+             maxlength="50"
+             pattern="^[a-z0-9._%+-]+@msggroup.com"
+             placeholder="Email"
+             #email="ngModel">
+      <mat-error *ngIf="email.touched && email.invalid">Required</mat-error>
+      <mat-error *ngIf="email.errors?.pattern">Invalid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             [(ngModel)]="user.password"
+             required
+             id="password"
+             name="password"
+             maxlength="50"
+             placeholder="Password"
+             #password="ngModel">
+      <mat-error *ngIf="password.touched && password.invalid">Required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Roles</mat-label>
+      <mat-select
+        id="roles"
+        name="roles"
+        required
+        [(ngModel)]="user.roles"
+        multiple>
+        <mat-option  *ngFor="let role of roleList" [value]="role.type">{{getEnumName(role.type)}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="onSubmit()"  mat-raised-button color="primary" type="submit" class="save" [disabled]="!form.valid">Save</button>
+  </form>
+    </mat-card-content>
+</mat-card>
+
+
+

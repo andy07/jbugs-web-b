@@ -1,0 +1,51 @@
+<div class="basic-container"  *ngIf="verifyUserPermission()">
+  <mat-accordion>
+
+    <section matSort class="mat-header-row">
+      <span class="mat-header-cell" mat-sort-header="roleType">Role Type</span>
+      <span class="mat-header-cell" mat-sort-header="permissions">Permissions</span>
+    </section>
+
+
+    <mat-expansion-panel *ngFor="let panel of roleList">
+      <mat-expansion-panel-header [collapsedHeight]="'80px'" [expandedHeight]="'80px'">
+        <mat-panel-title>{{getEnumName(panel.type)}}
+        </mat-panel-title>
+        <mat-panel-description class="mat-body-cell">
+
+          <span *ngFor="let perm of panel.permissions" >{{perm.type}} &nbsp;</span>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ng-template matExpansionPanelContent>
+        <form #form="ngForm" (ngSubmit)="onSubmit(panel)">
+          <mat-form-field>
+            <mat-label>Permissions</mat-label>
+            <mat-select
+              id="permissions"
+              name="permissions"
+              required
+              [(ngModel)]="panel.permissions"
+              [multiple]="true"
+              [compareWith]="compareWithFunc">
+              <mat-option *ngFor="let permission of permissionList"
+                          [value]="permission">{{permission.type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>
+            Selected Permissions:
+          </p>
+          <ul *ngFor="let permission of panel.permissions">
+            <span><mat-icon>whatshot</mat-icon> &nbsp;{{permission.type}}</span>
+          </ul>
+        </form>
+      </ng-template>
+
+      <mat-action-row>
+        <button mat-button (click)="onSubmit(panel)">Save</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

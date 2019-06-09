@@ -1,0 +1,18 @@
+<mat-form-field>
+  <mat-label>Status</mat-label>
+  <mat-select [(ngModel)]="selectValue"
+              [formControl]="statusControl" required>
+    <mat-optgroup>Current status
+      <mat-option [value]="bugActualStatus" disabled="">{{bugActualStatus}}</mat-option>
+    </mat-optgroup>
+    <mat-optgroup>Select status
+      <mat-option *ngFor="let status of bugStatusList" [value]="status"
+                  [disabled]="status==='CLOSED'">{{status}}</mat-option>
+    </mat-optgroup>
+  </mat-select>
+  <mat-error *ngIf="statusControl.hasError('required')">Please choose a status</mat-error>
+</mat-form-field>
+
+
+
+

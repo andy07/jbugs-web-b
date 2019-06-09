@@ -1,0 +1,42 @@
+<div class="middle">
+  <form #formElement='ngForm'>
+
+    <div class="form-group">
+      <label for="usernameField" class="font-weight-bolder"> Username </label>
+      <input class="form-control"
+             [(ngModel)]="username"
+             type="text"
+             id="usernameField"
+             name="username"
+             required
+             #usernameField="ngModel"
+             ngModel
+             style="max-width: 400px">
+      <div class="alert alert-danger" *ngIf="usernameField.touched && usernameField.invalid" style="max-width: 200px">
+        <div *ngIf="usernameField.errors?.required">Username is required!</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="passwordField" class="font-weight-bolder"> Password </label>
+      <input class="form-control"
+             [(ngModel)]="password"
+             type="password"
+             id="passwordField"
+             name="password"
+             required
+             #passwordField="ngModel"
+             ngModel
+             style="max-width: 400px">
+      <div class="alert alert-danger" *ngIf="passwordField.touched && passwordField.invalid" style="max-width: 200px">
+        Password is required
+      </div>
+    </div>
+
+    <button class="btn-primary btn-lg"
+            [disabled]="formElement.invalid"
+            (click)="loginUser()">
+      Login
+    </button>
+  </form>
+</div>

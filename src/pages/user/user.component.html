@@ -1,0 +1,16 @@
+<button mat-button [matMenuTriggerFor]="userMenu">{{getUsername()}}</button>
+<mat-menu #userMenu="matMenu" xPosition="before">
+  <button mat-menu-item>
+    <mat-icon>info</mat-icon>
+    Info
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notification_important</mat-icon>
+    Notifications
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon class="logout">power_settings_new</mat-icon>
+    Logout
+  </button>
+</mat-menu>

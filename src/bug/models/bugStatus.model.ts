@@ -1,0 +1,8 @@
+export enum BugStatus {
+  NEW = 'NEW',
+  IN_PROGRESS = 'IN_PROGRESS',
+  INFO_NEEDED = 'INFO_NEEDED',
+  FIXED = 'FIXED',
+  REJECTED = 'REJECTED',
+  CLOSED = 'CLOSED'
+}

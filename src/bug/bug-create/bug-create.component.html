@@ -1,0 +1,80 @@
+<div>
+  <mat-card>
+    <p>Create a new bug</p>
+    <mat-card-content>
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <mat-form-field>
+          <input matInput
+                 [(ngModel)]="bug.title"
+                 #title="ngModel"
+                 placeholder="Title"
+                 id="title"
+                 name="title"
+                 required>
+          <mat-error *ngIf="title.touched && title.invalid">Required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 [(ngModel)]="bug.version"
+                 #version="ngModel"
+                 id="version"
+                 name="version"
+                 required
+                 pattern="[0-9a-z\.]*"
+                 placeholder="Version">
+          <mat-error *ngIf="version.errors?.required">Required</mat-error>
+          <mat-error *ngIf="version.errors?.pattern">Alphanumerical characters divided by dots</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Severity</mat-label>
+          <mat-select [(ngModel)]="bug.severity"
+                      name="severity"
+                      id="severity"
+                      #status="ngModel"
+                      required>
+            <mat-option *ngFor="let status of severity" [value]="status"
+                        selected="bug.severity === status">{{status}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AssignedTo</mat-label>
+          <mat-select [(ngModel)]="bug.assignedTo"
+                      name="assigned_to"
+                      id="assigned_to"
+                      #assigned_to="ngModel"
+                      required>
+            <mat-option *ngFor="let username of usernames" [value]="username">{{username}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 [ngModel]="bug.targetDate"
+                 #targetDate="ngModel"
+                 id="targetDate"
+                 name="targetDate"
+                 required
+                 [matDatepicker]="picker"
+                 placeholder="Target date" [value]="bug.targetDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="version.errors?.required">Required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+      <textarea matInput
+                [(ngModel)]="bug.description"
+                #description="ngModel"
+                id="description"
+                name="description"
+                cols="10"
+                rows="10"
+                placeholder="Description"></textarea>
+          <mat-error *ngIf="version.errors?.required">Required</mat-error>
+        </mat-form-field>
+        <button mat-raised-button class="save" color="primary" type="submit">Save</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <app-attachment-create [bugTitle]="bug.title"></app-attachment-create>
+
+  {{form.value|json}}
+</div>

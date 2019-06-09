@@ -1,0 +1,15 @@
+/* AppComponent's private CSS styles */
+.mat-toolbar {
+  top: 0;
+  position: fixed;
+  z-index: 1000;
+  height: 8vh;
+}
+
+span {
+  flex: 1 1 auto;
+}
+
+.mat-transparent {
+  background: transparent;
+}

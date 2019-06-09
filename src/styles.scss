@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.css';
+
+.red {
+  background: red;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button:focus {
+  outline: none;
+  border-color: transparent;
+}
+
+th.mat-header-cell {
+  text-align: left;
+  font-size: 2vh;
+}
+
+.mat-header-row {
+  background: transparent;
+}
+
+table{
+  width: 100%;
+}

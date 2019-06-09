@@ -1,0 +1,103 @@
+<div>
+  <mat-card>
+    <p class="p">Bug details</p>
+    <mat-card-content>
+      <form #form="ngForm">
+        <mat-placeholder class="placeholder">Title</mat-placeholder>
+        <mat-form-field>
+          <input matInput
+                 [(ngModel)]="bug.title"
+                 #title="ngModel"
+                 id="title"
+                 name="title"
+                 [disabled]="title">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Version</mat-placeholder>
+          <input matInput
+                 [(ngModel)]="bug.version"
+                 #version="ngModel"
+                 id="version"
+                 name="version"
+                 [disabled]="version">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Revison</mat-placeholder>
+          <input matInput
+                 [(ngModel)]="bug.fixedVersion"
+                 #revision="ngModel"
+                 id="revision"
+                 name="revision"
+                 [disabled]="revision">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Severity</mat-placeholder>
+          <input matInput
+                 [(ngModel)]="bug.severity"
+                 #severity="ngModel"
+                 id="severity"
+                 name="severity"
+                 [disabled]="severity">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Assigned To</mat-placeholder>
+          <input matInput
+                 [(ngModel)]="bug.assignedTo"
+                 #assignedTo="ngModel"
+                 id="assigned_to"
+                 name="assigned_to"
+                 [disabled]="assignedTo">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Created By</mat-placeholder>
+          <input matInput
+                 [(ngModel)]="bug.createdBy"
+                 #createdBy="ngModel"
+                 id="created_by"
+                 name="created_by"
+                 required
+                 [disabled]="createdBy">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Status</mat-placeholder>
+          <input matInput
+                 [(ngModel)]="bug.status"
+                 #status="ngModel"
+                 id="status"
+                 name="status"
+                 required
+                 [disabled]="status">
+          <mat-error *ngIf="version.errors?.required">Required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Target Date</mat-placeholder>
+          <input matInput
+                 [ngModel]="bug.targetDate"
+                 #date="ngModel"
+                 id="date"
+                 name="date"
+                 required
+                 [disabled]="date">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-placeholder class="placeholder">Descriprion</mat-placeholder>
+          <input matInput
+                 [(ngModel)]="bug.description"
+                 #description="ngModel"
+                 id="description"
+                 name="description"
+                 cols="10"
+                 rows="10"
+                 [disabled]="description">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <button (click)="redirectToBugList()" mat-raised-button color="accent">Return to list</button>
+
+  <p>
+    {{form.value|json}}
+  </p>
+
+</div>

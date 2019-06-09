@@ -1,0 +1,142 @@
+<div id="buttonAndFilter" *ngIf=getPermissionForBugManagement()>
+  <button mat-button [routerLink]="['../bug-create/']" *ngIf=getPermissionForBugManagement()>
+    <mat-icon color="warn">add</mat-icon>
+    <span>Add</span>
+  </button>
+  <button mat-button (click)="exportBugsToExcel()" *ngIf=getPermissionForBugManagement()>
+    <mat-icon color="warn">save_alt</mat-icon>
+    Export Bugs
+  </button>
+  <button mat-button [routerLink]="['../bug-graph/']" *ngIf=getPermissionForBugManagement()>
+    <mat-icon color="warn">graphic_eq</mat-icon>
+    Statistics Bugs
+  </button>
+
+  <mat-form-field id="filter">
+    <input matInput [formControl]="globalFilter" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div class="mat-elevation-z8" *ngIf=getPermissionForBugManagement()>
+
+  <table mat-table *ngIf='true' [dataSource]="dataSource" matSort (matSortChange)="sortData()">
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Title</th>
+      <td mat-cell *matCellDef="let element"> {{element.title}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="titleFilter">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field floatLabel="never">
+          <input matInput [formControl]="titleFilter">
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="version">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Version</th>
+      <td mat-cell *matCellDef="let element"> {{element.version}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="versionFilter">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field floatLabel="never">
+          <input matInput [formControl]="versionFilter">
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="fixedVersion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fixed Version</th>
+      <td mat-cell *matCellDef="let element"> {{element.fixedVersion}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fixedVersionFilter">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field floatLabel="never">
+          <input matInput [formControl]="fixedVersionFilter">
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="severity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Severity</th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'high': true}">{{element.severity}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="severityFilter">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field floatLabel="never">
+          <input matInput [formControl]="severityFilter">
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+      <td mat-cell *matCellDef="let element"> {{element.status}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="statusFilter">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field floatLabel="never">
+          <input matInput [formControl]="statusFilter">
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="assignedTo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned To</th>
+      <td mat-cell *matCellDef="let element"> {{element.assignedTo}}   </td>
+    </ng-container>
+
+    <ng-container matColumnDef="assignedToFilter">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field floatLabel="never">
+          <input matInput [formControl]="assignedToFilter">
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <!-- Star Column -->
+    <ng-container matColumnDef="star" stickyEnd>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="['../bug-edit/', element.id]">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item [routerLink]="['../bug-view-details/', element.id]">
+            <mat-icon>details</mat-icon>
+            <span>View details</span>
+          </button>
+
+          <button mat-menu-item (click)="exportBugPDF(element.title)" *ngIf="returnPermissionPDFExportBug()">
+            <mat-icon>picture_as_pdf</mat-icon>
+            <span>Export PDF</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsFilter; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+
+
+  <mat-card *ngIf="dataSource?.filteredData.length <= 0" style="margin-bottom: 5px">
+    <div><span id="zeroResult">ZERO RESULT</span></div>
+  </mat-card>
+
+</div>
+
+

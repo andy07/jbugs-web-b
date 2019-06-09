@@ -1,0 +1,68 @@
+li {
+  text-align: left;
+}
+
+links {
+  margin-left: 20px;
+}
+
+td {
+  margin-left: 20px;
+}
+
+a :before {
+  margin-left: 20px;
+}
+
+mat-cell {
+  margin-right: 40px;
+}
+
+div {
+  display: inline;
+  margin-left: 40px;
+}
+
+button {
+  border-color: transparent;
+}
+
+button:focus {
+  outline: 0;
+  border: none;
+}
+
+/* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 16px;
+  width: 100%;
+}
+
+button {
+  margin-top: 25px;
+  margin-left: 500px;
+}
+
+p {
+  margin-top: 25px;
+}
+
+input:disabled {
+  color: black;
+
+}
+
+mat-placeholder {
+  font-size: 16px;
+  font-weight: bold;
+  color: #7a2cff;
+
+}
+
+p {
+  font-size: 20px;
+}
